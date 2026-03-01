@@ -1,10 +1,11 @@
 import Field from "./Field"
 
 type SearchTaskFormProps = {
-  onSearchInput: (query: string) => void
+  searchQuery: string
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>
 }
 
-const SearchTaskForm = ({onSearchInput}: SearchTaskFormProps) => {
+const SearchTaskForm = ({searchQuery, setSearchQuery}: SearchTaskFormProps) => {
   return (
     <form className="todo__form" onSubmit={(event: Event) => event.preventDefault()}>
       <Field
@@ -12,7 +13,8 @@ const SearchTaskForm = ({onSearchInput}: SearchTaskFormProps) => {
         label="Search task"
         id="search-task"
         type="search"
-        onInput={(event) => onSearchInput(event.target.value)}
+        value={searchQuery}
+        onInput={(event) => setSearchQuery(event.currentTarget.value)}
       />
     </form>
   )

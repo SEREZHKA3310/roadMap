@@ -2,20 +2,25 @@ import TodoItem, { type TodoItemProps } from "./Todoitem"
 
 export type ToDoListProps = {
   tasks: Omit<TodoItemProps, "className" | 'onDeleteTaskButtonClick' | 'onTaskCompleteChange'>[] | []
+  filteredTasks: Omit<TodoItemProps, "className" | 'onDeleteTaskButtonClick' | 'onTaskCompleteChange'>[] | null
   onDeleteTaskButtonClick: (id: string) => void
   onTaskCompleteChange: (id: string, isDone: boolean) => void
 }
 
-const TodoList = ({tasks = [], onDeleteTaskButtonClick, onTaskCompleteChange}: ToDoListProps) => {
-  const hasTasks = true
+const TodoList = ({tasks, filteredTasks, onDeleteTaskButtonClick, onTaskCompleteChange}: ToDoListProps) => {
+  const hasTasks = tasks.length > 0
+  const isEmptyFiltetedTasks = filteredTasks?.length === 0
 
   if (!hasTasks) {
-    return <div className="todo__empty-message"></div>
+    return <div className="todo__empty-message">There are no tasks yet</div>
+  }
+  if (hasTasks && isEmptyFiltetedTasks) {
+    return <div className="todo__empty-message">Tasks not found</div>
   }
 
   return (
     <ul className="todo__list">
-      {tasks.map(({ id, title, isDone }) => (
+      {(filteredTasks ?? tasks).map(({ id, title, isDone }) => (
         <TodoItem
           className='todo__item'
           key={id}

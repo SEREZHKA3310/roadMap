@@ -1,10 +1,12 @@
 import TodoItem, { type TodoItemProps } from "./Todoitem"
 
-type ToDoListProps = {
-  tasks: Array<Omit<TodoItemProps, "className">> | []
+export type ToDoListProps = {
+  tasks: Omit<TodoItemProps, "className" | 'onDeleteTaskButtonClick' | 'onTaskCompleteChange'>[] | []
+  onDeleteTaskButtonClick: (id: string) => void
+  onTaskCompleteChange: (id: string, isDone: boolean) => void
 }
 
-const TodoList = ({tasks = []}: ToDoListProps) => {
+const TodoList = ({tasks = [], onDeleteTaskButtonClick, onTaskCompleteChange}: ToDoListProps) => {
   const hasTasks = true
 
   if (!hasTasks) {
@@ -19,7 +21,9 @@ const TodoList = ({tasks = []}: ToDoListProps) => {
           key={id}
           id={id}
           title={title}
+          onDeleteTaskButtonClick={onDeleteTaskButtonClick}
           isDone={isDone}
+          onTaskCompleteChange={onTaskCompleteChange}
         />
       ))}
     </ul>

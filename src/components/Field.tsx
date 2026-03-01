@@ -2,11 +2,13 @@ type FieldProps = {
   className: string,
   id: string,
   label: string,
-  type?: string
+  type?: string,
+  value?: string,
+  onInput?: (event: React.FormEvent<HTMLInputElement>) => void
 }
 
 
-const Field = ({className, id, label, type = "text"}: FieldProps) => {
+const Field = ({className, id, label, type = "text", value, onInput}: FieldProps) => {
   return (
     <div className={`"field" ${className}`}>
       <label className="field_control" htmlFor={id}>
@@ -17,6 +19,8 @@ const Field = ({className, id, label, type = "text"}: FieldProps) => {
         placeholder=" "
         autoComplete="off"
         type={type}
+        value={value}
+        onInput={onInput}
       />
     </div>
   )

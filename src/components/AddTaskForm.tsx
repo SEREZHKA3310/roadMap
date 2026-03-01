@@ -1,17 +1,26 @@
 import Button from "./Button"
 import Field from "./Field"
 
+type AddTaskFormProps = {
+  onButtonSubmit: () => void
+}
 
+const AddTaskForm = ({onButtonSubmit, newTaskTitle, setNewTaskTitle}: AddTaskFormProps) => {
+  const onSubmit = (event: Event) => {
+    event.preventDefault()
+    onButtonSubmit()
+  }
 
-const AddTaskForm = () => {
   return (
-    <form className="todo__form">
-      <Field 
+    <form className="todo__form" onSubmit={onSubmit}>
+      <Field
         className="todo__field"
         label="New task title "
         id="new-task"
+        value={newTaskTitle}
+        onInput={(event) => setNewTaskTitle(event.target.value)}
       />
-      <Button type="submit" />
+      <Button type="submit">Add</Button>
     </form>
   )
 }

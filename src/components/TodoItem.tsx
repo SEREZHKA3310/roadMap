@@ -4,9 +4,11 @@ export type TodoItemProps = {
   title: string,
   isDone: boolean
   readonly?: boolean
+  onDeleteTaskButtonClick: (id: string) => void
+  onTaskCompleteChange: (id: string, isDone: boolean) => void
 }
 
-const TodoItem = ({className, id, title, isDone, readonly = true}: TodoItemProps) => {
+const TodoItem = ({className, id, title, isDone, onDeleteTaskButtonClick, onTaskCompleteChange}: TodoItemProps) => {
   return (
     <li className={`todo__item ${className}`}>
       <input
@@ -14,7 +16,7 @@ const TodoItem = ({className, id, title, isDone, readonly = true}: TodoItemProps
         id={id}
         type="checkbox"
         checked={isDone}
-        readOnly={readonly}
+        onChange={({target}) => onTaskCompleteChange(id, target.checked)}
       />
       <label
         className="todo-item__label"
@@ -26,6 +28,7 @@ const TodoItem = ({className, id, title, isDone, readonly = true}: TodoItemProps
         className="todo-item__delete-button"
         aria-label="Delete"
         title="Delete"
+        onClick={() => onDeleteTaskButtonClick(id)}
       >
         <svg
           width="20"

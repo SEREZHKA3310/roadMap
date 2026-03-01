@@ -1,9 +1,10 @@
 type TodoInfoProps = {
   total: number,
-  done: number
+  done: number,
+  onDeleteAllButtonClick: () => void
 }
 
-const TodoInfo = ({total, done}: TodoInfoProps) => {
+const TodoInfo = ({total, done, onDeleteAllButtonClick}: TodoInfoProps) => {
   const hasTasks = total > 0
 
   return (
@@ -12,7 +13,7 @@ const TodoInfo = ({total, done}: TodoInfoProps) => {
         Done {done} from {total}
       </div>
       {hasTasks && (
-        <button className="todo__delete-all-button" type="button">
+        <button className="todo__delete-all-button" type="button" onClick={onDeleteAllButtonClick}>
           Delete all
         </button>
       )}

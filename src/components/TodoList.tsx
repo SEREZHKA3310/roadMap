@@ -7,7 +7,7 @@ export type ToDoListProps = {
   onTaskCompleteChange: (id: string, isDone: boolean) => void
 }
 
-const TodoList = ({tasks, filteredTasks, onDeleteTaskButtonClick, onTaskCompleteChange}: ToDoListProps) => {
+const TodoList = ({tasks, filteredTasks, onDeleteTaskButtonClick, onTaskCompleteChange, firstIncompleteTaskRef, firstIncompleteTaskId}: ToDoListProps) => {
   const hasTasks = tasks.length > 0
   const isEmptyFiltetedTasks = filteredTasks?.length === 0
 
@@ -25,6 +25,7 @@ const TodoList = ({tasks, filteredTasks, onDeleteTaskButtonClick, onTaskComplete
           className='todo__item'
           key={id}
           id={id}
+          ref={firstIncompleteTaskId === id ? firstIncompleteTaskRef : null}
           title={title}
           onDeleteTaskButtonClick={onDeleteTaskButtonClick}
           isDone={isDone}

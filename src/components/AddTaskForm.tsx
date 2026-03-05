@@ -7,7 +7,8 @@ type AddTaskFormProps = {
   setNewTaskTitle: React.Dispatch<React.SetStateAction<string>>
 }
 
-const AddTaskForm = ({onButtonSubmit, newTaskTitle, setNewTaskTitle}: AddTaskFormProps) => {
+const AddTaskForm = (
+  {onButtonSubmit, newTaskTitle, setNewTaskTitle, newTaskInputRef}: AddTaskFormProps) => {
   const onSubmit = (event: Event) => {
     event.preventDefault()
     onButtonSubmit()
@@ -21,6 +22,7 @@ const AddTaskForm = ({onButtonSubmit, newTaskTitle, setNewTaskTitle}: AddTaskFor
         id="new-task"
         value={newTaskTitle}
         onInput={(event) => setNewTaskTitle(event.currentTarget.value)}
+        ref={newTaskInputRef}
       />
       <Button type="submit">Add</Button>
     </form>

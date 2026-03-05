@@ -4,9 +4,9 @@ type ButtonProps = {
   children?: string
 }
 
-const Button = ({className = "", type = "button", children}: ButtonProps) => {
+const Button = ({className = "", type = "button", onClick, children}: ButtonProps) => {
   return (
-    <button className={`button ${className}`} type={type}>{children}</button>
+    <button onClick={onClick} className={`button ${className}`} type={type}>{children}</button>
   )
 }
 

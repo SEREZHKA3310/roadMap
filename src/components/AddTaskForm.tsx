@@ -1,5 +1,7 @@
+import { useContext } from "react"
 import Button from "./Button"
 import Field from "./Field"
+import { TasksContext } from "../context/TasksContext"
 
 type AddTaskFormProps = {
   onButtonSubmit: () => void
@@ -7,11 +9,17 @@ type AddTaskFormProps = {
   setNewTaskTitle: React.Dispatch<React.SetStateAction<string>>
 }
 
-const AddTaskForm = (
-  {onButtonSubmit, newTaskTitle, setNewTaskTitle, newTaskInputRef}: AddTaskFormProps) => {
+const AddTaskForm = () => {
+  const {
+    addTask,
+    newTaskTitle,
+    setNewTaskTitle,
+    newTaskInputRef
+  } = useContext(TasksContext)
+
   const onSubmit = (event: Event) => {
     event.preventDefault()
-    onButtonSubmit()
+    addTask()
   }
 
   return (

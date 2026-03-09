@@ -1,4 +1,5 @@
-import React, { memo } from "react"
+import React, { memo, useContext } from "react"
+import { TasksContext } from "../context/TasksContext"
 
 export type TodoItemProps = {
   className?: string,
@@ -10,16 +11,21 @@ export type TodoItemProps = {
   onTaskCompleteChange: (id: string, isDone: boolean) => void
 }
 
-const TodoItem = React.forwardRef<HTMLLIElement, TodoItemProps>(
-  ({ className, id, title, isDone, onDeleteTaskButtonClick, onTaskCompleteChange }, ref) => {
+const TodoItem = ({className, id, title, isDone}) => {
+  const {
+    firstIncompleteTaskRef,
+    firstIncompleteTaskId,
+    deleteTask,
+    toggleTaskComplete
+  } = useContext(TasksContext)
     return (
-      <li className={`todo__item ${className}`} ref={ref}>
+      <li className={`todo__item ${className}`} ref={id === firstIncompleteTaskId ? firstIncompleteTaskRef : null}>
         <input
           className="todo-item__checkbox"
           id={id}
           type="checkbox"
           checked={isDone}
-          onChange={({target}) => onTaskCompleteChange(id, target.checked)}
+          onChange={({target}) => toggleTaskComplete(id, target.checked)}
         />
         <label
           className="todo-item__label"
@@ -31,7 +37,7 @@ const TodoItem = React.forwardRef<HTMLLIElement, TodoItemProps>(
           className="todo-item__delete-button"
           aria-label="Delete"
           title="Delete"
-          onClick={() => onDeleteTaskButtonClick(id)}
+          onClick={() => deleteTask(id)}
         >
           <svg
             width="20"
@@ -52,6 +58,5 @@ const TodoItem = React.forwardRef<HTMLLIElement, TodoItemProps>(
       </li>
     )
   }
-)
 
 export default memo(TodoItem)

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 
 export type TodoItemProps = {
   className?: string,
@@ -54,4 +54,4 @@ const TodoItem = React.forwardRef<HTMLLIElement, TodoItemProps>(
   }
 )
 
-export default TodoItem
+export default memo(TodoItem)

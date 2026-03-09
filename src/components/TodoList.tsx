@@ -1,3 +1,4 @@
+import { memo } from "react"
 import TodoItem, { type TodoItemProps } from "./Todoitem"
 
 export type ToDoListProps = {
@@ -36,4 +37,4 @@ const TodoList = ({tasks, filteredTasks, onDeleteTaskButtonClick, onTaskComplete
   )
 }
 
-export default TodoList
+export default memo(TodoList)

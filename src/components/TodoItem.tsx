@@ -7,11 +7,9 @@ export type TodoItemProps = {
   title: string,
   isDone: boolean
   readonly?: boolean
-  onDeleteTaskButtonClick: (id: string) => void
-  onTaskCompleteChange: (id: string, isDone: boolean) => void
 }
 
-const TodoItem = ({className, id, title, isDone}) => {
+const TodoItem = ({className, id, title, isDone}: TodoItemProps) => {
   const {
     firstIncompleteTaskRef,
     firstIncompleteTaskId,

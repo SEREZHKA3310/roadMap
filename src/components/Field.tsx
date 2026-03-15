@@ -6,18 +6,19 @@ type FieldProps = {
   label: string,
   type?: string,
   value?: string,
+  error: string,
   onInput?: (event: React.FormEvent<HTMLInputElement>) => void
 }
 
 const Field = React.forwardRef<HTMLInputElement, FieldProps>(
-  ({ className, id, label, type = "text", value, onInput }, ref) => {
+  ({ className, id, label, type = "text", value, error, onInput }, ref) => {
     return (
       <div className={`"field" ${className}`}>
         <label className="field_control" htmlFor={id}>
           {label}
         </label>
         <input 
-          className="field__input"
+          className={`field__input ${error ? 'is-invalid' : ''}`}
           id={id}
           placeholder=" "
           autoComplete="off"
@@ -26,6 +27,9 @@ const Field = React.forwardRef<HTMLInputElement, FieldProps>(
           onInput={onInput}
           ref={ref}
         />
+        {error && (
+          <span className="field__error" title={error}>{error}</span>
+        )}
       </div>
     )
   }
